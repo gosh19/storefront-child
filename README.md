@@ -1,4 +1,4 @@
-# Prueba Técnica de Maquetación WordPress/WooCommerce - [Tu Nombre]
+# Prueba Técnica de Maquetación WordPress/WooCommerce
 
 Este repositorio contiene el tema hijo (`storefront-child`) desarrollado para la prueba técnica de maquetación de una página de inicio de e-commerce de cotillón, basada en el diseño de Adobe XD proporcionado.
 
