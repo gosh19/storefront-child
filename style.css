@@ -15,7 +15,9 @@
 .content-area{
     background-color: #f8f8f0 !important;
 }
-
+.woocommerce-products-header__title .page-title{
+    display: none;
+}
 .banner-ppal{
     display: flex;
     justify-content: start;
@@ -229,13 +231,13 @@ font-family: 'Arial', sans-serif;
 
 /**CATEGORIAS********************************************/
 .categories-list ul{
-    padding-bottom: 36px !important;
-}
-.categories-list ul{
     display: flex;
     gap: 30px;
-    justify-content: center;
+    justify-content: initial;
     margin: 0;
+    padding-bottom: 36px !important;
+    padding-left: 2.3rem !important;
+    margin-left: 24px !important;
 }
 .categories-list ul li{
     display: flex;
@@ -269,13 +271,15 @@ font-family: 'Arial', sans-serif;
 .category-title{
     font-weight: 700 !important;
     font-size: 42px;
+    padding-left: 2.3rem !important;
     margin-left: 24px !important;
     margin-bottom: 12px !important;
     color: #f2462a !important;
 }
 .category-text{
     width: 70%;
-    padding: 0 24px !important;
+    padding-left: 2.3rem !important;
+    margin-left: 24px !important;
     font-weight: 700;
     font-size: 19px;
     color: #333;
@@ -286,12 +290,13 @@ font-family: 'Arial', sans-serif;
 
 /**********************PRODUCTOS********************/
 .featured-product-section .wp-block-heading.alignwide,
+.offers-product-section .wp-block-heading.alignwide,
 .product-section .wp-block-heading.alignwide{
     font-weight: 700 !important;
     font-size: 42px;
     margin-left: 24px !important;
     margin-bottom: 12px !important;
-    
+    padding-left: 2.3rem !important;
 }
 .product-section .wp-block-heading.alignwide{
     color: #003dff !important;
@@ -299,12 +304,17 @@ font-family: 'Arial', sans-serif;
 .featured-product-section .wp-block-heading.alignwide{
     color: #36ce77 !important;
 }
+.offers-product-section .wp-block-heading.alignwide{
+    color: #ffb9e5 !important;
+}
 .featured-product-section .wp-block-heading.alignwide::after,
+.offers-product-section .wp-block-heading.alignwide::after,
 .product-section .wp-block-heading.alignwide::after{
     content: '★';
     margin-left: 8px;
 }
 .featured-product-section .wp-block-heading.alignwide::before,
+.offers-product-section .wp-block-heading.alignwide::before,
 .product-section .wp-block-heading.alignwide::before{
     content: '★';
     margin-right: 8px;
@@ -326,9 +336,12 @@ font-family: 'Arial', sans-serif;
 .product-list li button{
    display: none !important;
 } 
+
+
+
 /*************BANNER MEDIA **************************/
 .banner-media{
-    background-color: #fce3e8 !important;
+    background-color: #ffd62c !important;
 
 }
 .banner-media h2{
@@ -354,6 +367,119 @@ font-family: 'Arial', sans-serif;
     background-color: #0142f9 !important;
      color: #36ce77 !important;
      transition: all .3s ease-in-out;
+}
 
+/*************GALLERIA**********************************/
+.gallery-images{
+    padding: 0px 2.3rem !important;
+     margin: 0px 24px !important;
+}
+.kadence-blocks-gallery-item {
+  position: relative;
+  overflow: hidden; 
+}
+
+
+.kadence-blocks-gallery-item::before {
+    content: "Lorem ipsum"; 
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    color: white;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+
+    background-color: rgba(0, 0, 0, 0); 
+    z-index: 9999;
+
+    transition: background-color 0.3s ease-in-out;
+}
+.kadence-blocks-gallery-item:hover::before {
+    opacity: 1;
+    transition: background-color 0.3s ease-in-out;
+}
+.kadence-blocks-gallery-item:nth-child(4n + 1):hover::before {
+  background-color: rgba(222, 133, 60, 0.7); /* Ejemplo: azul con 40% de opacidad */
+}
+.kadence-blocks-gallery-item:nth-child(4n + 2):hover::before {
+  background-color: rgba(60, 130, 222, 0.7); /* Ejemplo: azul con 40% de opacidad */
+}
+.kadence-blocks-gallery-item:nth-child(4n + 3):hover::before {
+  background-color: rgba(79, 222, 60, 0.7); /* Ejemplo: azul con 40% de opacidad */
+}
+.kadence-blocks-gallery-item:nth-child(4n + 4):hover::before {
+ background-color: rgba(217, 60, 222, 0.7); /* Ejemplo: azul con 40% de opacidad */
+}
+
+.kadence-blocks-gallery-item img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.kadence-blocks-gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/***********FAQ*********************************/
+.faq-section{
+background-color: #fce3e8 !important;
+padding: 36px 360px !important;
+margin-top: 36px !important;
+
+}
+.faq-section h2{
+    font-weight: 700 !important;
+    font-size: 36px;
+    color: #003dff !important;
+}
+
+.faq-section .wp-block-woocommerce-accordion-group h3{
     
+    font-weight: 700 !important;
+    color: #333 !important;
+}
+.faq-section .wp-block-woocommerce-accordion-group button:hover{
+    background-color: transparent !important;
+}
+.faq-section .wp-block-woocommerce-accordion-group .accordion-item__toggle-icon{
+    color: #003dff !important;
+}
+.faq-section .wp-block-woocommerce-accordion-item{
+    padding: 12px 0px !important;
+    border-top: 1px solid #333;
+    margin: 0 !important;
+}
+.faq-section .wp-block-woocommerce-accordion-item:last-child{
+    border-bottom: 1px solid #333;
+}
+/*****************BOTTOM BANNER***********************/
+.bottom-banner{
+    color: white !important;
+}
+.bottom-banner h2{
+    font-weight: 700 !important;
+    font-size: 36px;
+    color: white !important;
+}
+.bottom-banner a{
+    background-color: transparent !important;
+    border: 2px solid white !important;
+    padding: 10px 20px !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    border-radius: 15px !important;
+    color: white !important;
+    transition: .3s ease-in-out;
+}
+.bottom-banner a:hover{
+    background-color: white !important;
+    color: #f7553b !important;
+    transition: .3s ease-in-out;
 }
