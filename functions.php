@@ -7,9 +7,9 @@ function storefront_child_enqueue_styles() {
     wp_enqueue_style( 'storefront-style', get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'storefront-child-style',
         get_stylesheet_directory_uri() . '/style.css',
-        array( 'storefront-style' ),
-        wp_get_theme()->get('Version')
-    );
+        array( 'storefront-style' ), 
+        wp_get_theme()->get('Version') 
+    ); 
 }
 add_action( 'wp_enqueue_scripts', 'storefront_child_enqueue_styles' );
 
@@ -42,8 +42,22 @@ if ( ! function_exists( 'storefront_product_search' ) ) {
     function storefront_product_search() {
         if ( storefront_is_woocommerce_activated() ) {
             ?>
-            <div class="site-search">
-                <?php the_widget( 'WC_Widget_Product_Search', 'title=' ); ?>
+            <div class="site-search custom-search-wrapper">
+                <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <input
+                        type="search"
+                        class="search-field"
+                        placeholder="<?php echo esc_attr_x( 'Buscar productos', 'placeholder', 'storefront' ); ?>"
+                        value="<?php echo get_search_query(); ?>"
+                        name="s"
+                    />
+                    <button type="submit" class="search-icon">
+                        <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#fce3e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <input type="hidden" name="post_type" value="product" />
+                </form>
             </div>
             <?php
         }
@@ -95,4 +109,13 @@ if ( ! function_exists( 'storefront_handheld_footer_bar_my_account_link' ) ) {
     }
 }
 
+add_filter( 'woocommerce_product_single_add_to_cart_text', 'woocommerce_custom_add_to_cart_button_text' );
+function woocommerce_custom_add_to_cart_button_text() {
+    return __( 'Añadir a la cesta', 'woocommerce' );
+}
+
+add_filter( 'woocommerce_product_add_to_cart_text', 'woocommerce_custom_add_to_cart_button_text_archive' );
+function woocommerce_custom_add_to_cart_button_text_archive() {
+    return __( 'Añadir a la cesta', 'woocommerce' );
+}
 ?>

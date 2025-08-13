@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="76" height="76" viewBox="0 0 76 76">
+  <defs>
+    <filter id="Elipse_32" x="0" y="0" width="76" height="76" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="chat" transform="translate(21529.262 12189.262)">
+    <g transform="matrix(1, 0, 0, 1, -21529.26, -12189.26)" filter="url(#Elipse_32)">
+      <circle id="Elipse_32-2" data-name="Elipse 32" cx="29" cy="29" r="29" transform="translate(9 6)" fill="#ffd62c"/>
+    </g>
+    <path id="Trazado_272" data-name="Trazado 272" d="M2,23.652V4.165a2.082,2.082,0,0,1,.637-1.529A2.09,2.09,0,0,1,4.165,2H21.487a2.086,2.086,0,0,1,1.53.637,2.081,2.081,0,0,1,.635,1.529V17.156a2.17,2.17,0,0,1-2.165,2.165H6.33Z" transform="translate(-21503.957 -12166.957)" fill="#003dff"/>
+  </g>
+</svg>
