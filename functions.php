@@ -235,4 +235,13 @@ function custom_subcategories_grid_shortcode() {
     endif;
 }
 add_shortcode( 'subcategories_grid', 'custom_subcategories_grid_shortcode' );
+
+
+function add_legal_body_class($classes) {
+    if ( is_page(array('politica-de-privacidad', 'aviso-legal','condiciones-generales-compras','politicas-de-cookies')) ) {
+        $classes[] = 'paginas-legales';
+    }
+    return $classes;
+}
+add_filter('body_class', 'add_legal_body_class');
 ?>
