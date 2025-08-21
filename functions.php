@@ -118,4 +118,121 @@ add_filter( 'woocommerce_product_add_to_cart_text', 'woocommerce_custom_add_to_c
 function woocommerce_custom_add_to_cart_button_text_archive() {
     return __( 'Añadir a la cesta', 'woocommerce' );
 }
+
+function custom_enqueue_swiper() {
+    // Carga el CSS de Swiper.js desde un CDN
+    wp_enqueue_style( 'swiper-css', 'https://unpkg.com/swiper@11/swiper-bundle.min.css' );
+
+    // Carga el JavaScript de Swiper.js desde un CDN
+    wp_enqueue_script( 'swiper-js', 'https://unpkg.com/swiper@11/swiper-bundle.min.js', array(), null, true );
+    
+    // Carga tu propio JavaScript para inicializar el carrusel
+    wp_enqueue_script( 'custom-swiper-init', get_stylesheet_directory_uri() . '/assets/js/custom-swiper-init.js', array('swiper-js'), '1.0', true );
+}
+add_action( 'wp_enqueue_scripts', 'custom_enqueue_swiper' );
+
+
+
+function custom_product_carousel_shortcode() {
+    $args = array(
+        'post_type'      => 'product',
+        'posts_per_page' => 10,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    );
+    $products = new WP_Query( $args );
+    if ( $products->have_posts() ) :
+        ob_start();
+        ?>
+        <div class="swiper custom-product-carousel-swiper">
+            <div class="swiper-wrapper">
+                <?php while ( $products->have_posts() ) : $products->the_post(); ?>
+                    <div class="swiper-slide">
+                        <div class="custom-product-carousel-item">
+                            <?php
+                            if ( has_post_thumbnail() ) {
+                                the_post_thumbnail( 'woocommerce_thumbnail' );
+                            } else {
+                                echo wc_placeholder_img( 'woocommerce_thumbnail' );
+                            }
+                            ?>
+                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                            <?php 
+                                // ...
+                                $product_obj = wc_get_product( get_the_ID() );
+                                // Muestra solo el precio regular
+                                echo '<span class="price">' . wc_price( $product_obj->get_regular_price() ) . '</span>';
+                                // ...
+                            ?>
+                            <a href="<?php echo esc_url( $product_obj->add_to_cart_url() ); ?>"
+                               class="button add_to_cart_button product_type_<?php echo esc_attr( $product_obj->get_type() ); ?>"
+                               data-product_id="<?php echo esc_attr( $product_obj->get_id() ); ?>"
+                               data-product_sku="<?php echo esc_attr( $product_obj->get_sku() ); ?>"
+                               data-product_type="<?php echo esc_attr( $product_obj->get_type() ); ?>"
+                               aria-label="Añadir &ldquo;<?php echo esc_attr( $product_obj->get_name() ); ?>&rdquo; a la cesta"
+                               rel="nofollow">
+                                <?php echo esc_html( $product_obj->add_to_cart_text() ); ?>
+                            </a>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+        <?php
+        wp_reset_postdata();
+        return ob_get_clean();
+    endif;
+}
+add_shortcode( 'custom_product_carousel', 'custom_product_carousel_shortcode' );
+
+
+/**
+ * Shortcode para mostrar una cuadrícula de subcategorías con un botón.
+ */
+function custom_subcategories_grid_shortcode() {
+    // Definir los argumentos para obtener las categorías
+    $args = array(
+        'taxonomy'   => 'product_cat',
+        'hide_empty' => false,
+        'parent'     => 0, // Si quieres solo categorías de nivel superior
+        'orderby'    => 'name',
+    );
+
+    $product_categories = get_terms( $args ); 
+    $counter = 0;
+    if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) :
+        ob_start();
+        ?>
+        <div class="custom-subcategories-grid">
+            <?php foreach ( $product_categories as $category ) : ?>
+                <?php if ( $counter >= 6 ) break; // Break the loop after 6 items ?>
+                <div class="subcategory-grid-item">
+                    <a href="<?php echo esc_url( get_term_link( $category ) ); ?>">
+                        <?php 
+                        $thumbnail_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
+                        $image_url = wp_get_attachment_url( $thumbnail_id );
+
+                        if ( $image_url ) {
+                            echo '<img src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $category->name ) . '">';
+                        } else {
+                            echo '<img src="' . wc_placeholder_img_src() . '" alt="' . esc_attr( $category->name ) . '">';
+                        }
+                        ?>
+                        <div class="item-overlay">
+                            <span class="category-name"><?php echo esc_html( $category->name ); ?></span>
+                            <span class="category-button">Lorem ipsum</span>
+                        </div>
+                    </a>
+                </div>
+                <?php $counter++; ?>
+            <?php  endforeach; ?>
+        </div>
+        <?php
+        return ob_get_clean();
+    endif;
+}
+add_shortcode( 'subcategories_grid', 'custom_subcategories_grid_shortcode' );
 ?>

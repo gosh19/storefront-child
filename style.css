@@ -11,58 +11,24 @@
  Text Domain: storefront-child
 */
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-
+.page-width {
+    max-width: 1470px !important;
+    margin: 0 auto !important;
+    padding: 0 32px !important;
+}
 .content-area{
     background-color: #f8f8f0 !important;
 }
 .woocommerce-products-header__title .page-title{
     display: none;
 }
-.banner-ppal{
-    display: none;
-    justify-content: start;
 
-
-
-}
-.banner-ppal .contenido-banner>div{
-    display: flex;
-    flex-direction: column;
-
-}
-.banner-ppal h1{
-    font-family: 'Grandstander', sans-serif;
-    font-weight: 500; /* Se corresponde con el peso "medium" de la fuente */
-    font-size: 64px;
-    line-height: 66px;
-    margin: 0 !important;
-    color: #FFD62C !important;
-
-}
-
-.banner-ppal a{
-    margin-top: 24px !important;
-    padding: 10px 20px !important;
-    background-color: #003dff !important;
-    font-weight: 700 !important;;
-    color: #fce3e8 !important;
-    font-size: 18px !important;
-    border-radius: 15px !important;
-    transition: all .3s ease-in-out;
-}
-.banner-ppal a:hover{
-    background-color: #fce3e8!important;
-     color: #003dff !important;
-     transition: all .3s ease-in-out;
-
-    
-}
 .top-bar{
     background-color: #F2462A;
     color:white;
     text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     font-family: 'Outfit', sans-serif;
     font-weight: 500; /* medium */
     font-size: 14px;
@@ -72,9 +38,9 @@
     text-decoration: underline;
 }
 .site-header {
-    background-color: #FFDBF2; /* Color rosa del diseño */
-    padding-top: 24px; /* Ajusta el padding superior e inferior */
-    padding-bottom: 24px;
+    background-color: #FDDCF2; /* Color rosa del diseño */
+    padding-top: 16px; /* Ajusta el padding superior e inferior */
+    padding-bottom: 16px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sutil sombra si quieres */
     margin-bottom: 0 !important;
 }
@@ -120,7 +86,7 @@
     position: relative;
 }
 .site-search form{
-    width: 333px !important;
+    width: 222px !important;
     height: 42px !important;
 }
 .site-search input[type="search"]{
@@ -138,14 +104,13 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 40px;
+    gap: 24px;
 }
 
 
 
 .main-navigation ul.menu li a {
     color: #0E0E1D; /* Color de texto del menú */
-    text-transform: uppercase;
     text-decoration: none;
     padding: 11px 0;
     font-size: 16px;
@@ -240,16 +205,15 @@
 .custom-header-main-bar .top-header-bar{
     display: flex;
     justify-content: space-between;
-    align-items: center;;
-    padding: 0 24px;
-    margin-bottom: 16px;
+    align-items: center;
+ 
 
 }
 .custom-header-main-bar .header-container{
     display: flex;
     justify-content: space-between;
     align-items: center;;
-    padding: 0 24px;
+
 
 }
 
@@ -259,13 +223,19 @@
     gap: 40px;
     justify-content: initial;
     margin: 0;
-    padding-bottom: 36px !important;
-    padding-left: 2.3rem !important;
-    margin-left: 24px !important;
+    padding-bottom: 72px !important;
 }
 .categories-list ul li{
     display: flex;
     margin: 0 !important;
+}
+.categories-list ul li img{
+    transition: all .4s ease-in-out;
+}
+.categories-list ul li:hover img {
+    
+  transform: scale(1.05);
+   transition: all .4s ease-in-out;
 }
 .categories-list ul li a{
     margin: 0 !important;
@@ -285,6 +255,7 @@
     border-radius: 100%;
     overflow: hidden;
     margin: 0;
+
 }
 
 .category-title::before {
@@ -306,50 +277,48 @@
     font-weight: 600 !important;
     font-size: 40px;
     line-height: 48px !important;
-    padding-left: 2.3rem !important;
-    margin-left: 24px !important;
     margin-bottom: 12px !important;
+    padding-top: 106px !important;
     color: #f2462a; /* El color principal para el texto y el ícono */
 }
 .category-text{
     font-family: 'Outfit', sans-serif;
     width: 1150px;
-    padding-left: 2.3rem !important;
-    margin-left: 24px !important;
     font-weight: 400;
     font-size: 20px !important;
     letter-spacing: 0px !important;
     line-height: 28px !important;
     color: #0E0E1D;
+    margin-bottom: 32px !important;
 }
 
 /************************************************************************************/
 
 
 /**********************PRODUCTOS********************/
-.featured-product-section .wp-block-heading.alignwide,
-.offers-product-section .wp-block-heading.alignwide,
-.product-section .wp-block-heading.alignwide{
-
+:root :where(.is-layout-constrained) > *{
+    margin-block-start: 0px !important;
+}
+.featured-product-section .wp-block-heading,
+.sub-categories h2,
+.product-section .wp-block-heading{
     font-family: 'Grandstander', sans-serif;
     font-weight: 600 !important;
     font-size: 40px;
     line-height: 48px !important;
-    padding-left: 2.3rem !important;
-    margin-left: 24px !important;
-    margin-bottom: 12px !important;
+    margin-bottom: 30px !important;
 }
-.product-section .wp-block-heading.alignwide{
+.product-section .wp-block-heading{
     color: #003dff !important;
 }
-.featured-product-section .wp-block-heading.alignwide{
+.featured-product-section .wp-block-heading{
     color: #36ce77 !important;
 }
-.offers-product-section .wp-block-heading.alignwide{
-    color: #ffb9e5 !important;
+.sub-categories h2{
+    color: #F2462A !important;
 }
 
-.featured-product-section .wp-block-heading.alignwide::before{
+.featured-product-section .wp-block-heading::before{
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%2336ce77'/%3E%3C/svg%3E");
     content: ''; 
     display: inline-block; 
@@ -362,7 +331,7 @@
     margin-right: 8px;
     vertical-align: middle;
 }
-.offers-product-section .wp-block-heading.alignwide::before{
+.offers-product-section .wp-block-heading::before{
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23ffb9e5'/%3E%3C/svg%3E");
     content: '';
     display: inline-block; 
@@ -374,7 +343,7 @@
     margin-right: 8px;
     vertical-align: middle;
 }
-.product-section .wp-block-heading.alignwide::before{
+.product-section .wp-block-heading::before{
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23003dff'/%3E%3C/svg%3E");
     content: ''; /* Se necesita para que el pseudo-elemento se muestre */
     display: inline-block; /* O 'block' si quieres que ocupe todo el ancho */
@@ -389,57 +358,162 @@
     margin-right: 8px;
     vertical-align: middle; /* Opcional: para alinear el icono verticalmente con el texto */
 }
-.product-list{
-    overflow: auto;
+.sub-categories h2::before{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23F2462A'/%3E%3C/svg%3E");
+    content: ''; /* Se necesita para que el pseudo-elemento se muestre */
+    display: inline-block; /* O 'block' si quieres que ocupe todo el ancho */
+    width: 27px;
+    height: 25px;
+
+    /* Insertamos el SVG como una imagen de fondo */
+    
+    background-repeat: no-repeat;
+    background-size: contain; /* Ajusta el tamaño del SVG para que quepa en la caja */
+    
+    margin-right: 8px;
+    vertical-align: middle; /* Opcional: para alinear el icono verticalmente con el texto */
 }
-.product-list li{
-    width: 170px !important;
-    min-width: 170px !important;
+
+
+
+
+
+.swiper.custom-product-carousel-swiper{
+    max-width: 100% !important;
+    margin-bottom: 72px !important;
 }
-.product-list li img{
-    aspect-ratio: 1/1 !important;
-    width: 100% !important;
+.custom-product-carousel-swiper {
+    width: 100%;
+    height: auto;
+    padding-bottom: 40px; /* Espacio para la paginación */
 }
-.product-list li a{
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    color: #0E0E1D;
-    text-decoration: none !important;
-    text-align: left;
+.custom-product-carousel-swiper .swiper-button-prev{
+    opacity: 0;
 }
-.product-list li button{
-    font-family: 'Outfit', sans-serif;
-    background-color: #FFD62C !important;
-    padding: 8px 12px !important;
-    border-radius: 8px !important;
-    color: #0E0E1D;
-    font-weight: 600 !important;
-} 
-.product-list li bdi{
+.custom-product-carousel-swiper .swiper-button-next:after, .custom-product-carousel-swiper .swiper-button-prev:after{
+    color: #FFB9E5;
+    background: #003DFF;
+    border-radius: 100%;
+    padding: 10px 15px;
+}
+:root {
+    --swiper-navigation-size: 24px !important;
+}
+
+/* Estilo para los ítems del carrusel */
+.custom-product-carousel-item {
+
+    background-color: transparent;
+     width: 214px !important;
+    min-width: 214px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.custom-product-carousel-item bdi{
    font-size: 16px !important;
    line-height: 22px !important;
    font-weight: 400 !important;
    color: #0E0E1D;
 
-} 
-.wp-block-button.wc-block-components-product-button{
-    align-items: baseline !important;
 }
+
+
+.custom-product-carousel-item img {
+  transition: all .4s ease-in-out;
+  aspect-ratio: 1/1 !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    height: 239px;
+}
+.custom-product-carousel-item:hover img {
+  transform: scale(1.05);
+transition: all .4s ease-in-out;
+
+}
+
+.custom-product-carousel-item h3{
+    font-size: 14px !important;
+    line-height: 24px !important;
+    text-align: left;
+    margin-bottom: 0 !important;
+ 
+}
+.custom-product-carousel-item h3 a{
+
+    font-weight: 700 !important;
+    color: #0E0E1D;
+    text-decoration: none !important;
+    text-align: left;
+}
+.custom-product-carousel-item a.add_to_cart_button {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px !important;
+    line-height: 18px;
+    background-color: #FFD62C !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    color: #0E0E1D;
+    font-weight: 600 !important;
+    width: fit-content;
+    transition: all .4s ease-in-out;
+} 
+.custom-product-carousel-item a.add_to_cart_button:hover {
+    background-color: #FFB9E5 !important;
+    color: #003DFF;
+    transition: all .4s ease-in-out;
+} 
+/* Estilo para la barra de progreso */
+.custom-product-carousel-swiper .swiper-scrollbar {
+    background: #e0e0e0;
+    height: 4px;
+    left: 50% !important;
+    transform: translateX(-50%);
+    bottom: -30px !important;
+}
+
+.product-section .custom-product-carousel-swiper .swiper-scrollbar-drag {
+    background: #003dff; /* El color de la barra que se mueve */
+    
+}
+.featured-product-section .custom-product-carousel-swiper .swiper-scrollbar-drag {
+    background: #36ce77; /* El color de la barra que se mueve */
+    
+}
+
+.custom-product-carousel-swiper .swiper-slide {
+    /* Aquí pones tus estilos */
+    margin-right: 0px !important; 
+    background-color: transparent !important; 
+    max-width: 214px !important;
+    margin-right: 16px !important;
+}
+
+
+.wp-block-woocommerce-product-collection.is-layout-flow.wp-block-product-collection-is-layout-flow ul{
+    overflow: auto;
+    flex-wrap: nowrap !important;
+    margin:0 !important;
+}
+
 
 
 
 /*************BANNER MEDIA **************************/
 .banner-media{
     background-color: #ffd62c !important;
-
+    margin-bottom: 72px !important;
+}
+.banner-media .wp-block-media-text__content{
+    width: 735px !important;
+    margin-left: auto;
+    padding: 0 32px !important;
 }
 .banner-media h2{
     font-family: 'Grandstander', sans-serif;
     font-weight: 600; /* Se corresponde con el peso "medium" de la fuente */
     font-size: 40px;
     line-height: 48px;
-
-
     color: #003dff !important;
 }
 .banner-media P{
@@ -456,12 +530,12 @@
     color: #0142f9 !important;
     font-size: 18px !important;
     border-radius: 15px !important;
-    transition: all .3s ease-in-out;
+    transition: all .4s ease-in-out;
 }
 .banner-media a:hover{
     background-color: #0142f9 !important;
      color: #36ce77 !important;
-     transition: all .3s ease-in-out;
+     transition: all .4s ease-in-out;
 }
 
 /*************GALLERIA**********************************/
@@ -495,11 +569,11 @@
     background-color: rgba(0, 0, 0, 0); 
     z-index: 9999;
 
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.4s ease-in-out;
 }
 .kadence-blocks-gallery-item:hover::before {
     opacity: 1;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.4s ease-in-out;
 }
 .kadence-blocks-gallery-item:nth-child(4n + 1):hover::before {
   background-color: rgba(222, 133, 60, 0.7); /* Ejemplo: azul con 40% de opacidad */
@@ -515,7 +589,7 @@
 }
 
 .kadence-blocks-gallery-item img {
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.4s ease-in-out;
 }
 
 .kadence-blocks-gallery-item:hover img {
@@ -530,15 +604,23 @@ margin-top: 36px !important;
 
 }
 .faq-section h2{
-    font-weight: 700 !important;
-    font-size: 36px;
+    font-weight: 500 !important;
+    font-size: 40px;
+    line-height: 48px !important;
     color: #003dff !important;
+    font-family: 'Grandstander', sans-serif;
+    margin-bottom: 20px;
 }
+
 
 .faq-section .wp-block-woocommerce-accordion-group h3{
     
-    font-weight: 700 !important;
-    color: #333 !important;
+    font-weight: 400 !important;
+    color: #0E0E1D !important;
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px !important;
+    line-height: 28px !important;
+
 }
 .faq-section .wp-block-woocommerce-accordion-group button:hover{
     background-color: transparent !important;
@@ -557,40 +639,408 @@ margin-top: 36px !important;
 /*****************BOTTOM BANNER***********************/
 .bottom-banner{
     color: white !important;
+    background: #FFD62C 0% 0% no-repeat padding-box;
+}
+.bottom-banner img{
+    mix-blend-mode: multiply;
+}
+.bottom-banner p{
+    font-size: 20px !important;
+    line-height: 28px !important;
+    font-family: 'Outfit', sans-serif;
+    color: #FFF !important;
+    font-weight: normal;
+    
+}
+.bottom-banner .wp-block-kadence-form.kb-form-wrap{
+    display: flex ;
+
+    justify-content: center;
 }
 .bottom-banner h2{
-    font-weight: 700 !important;
-    font-size: 36px;
-    color: white !important;
+    font-weight: 500 !important;
+    font-family: 'Grandstander', sans-serif;
+    font-size: 48px !important;
+    line-height: 48px !important;
+    color: #F8F8F0 !important;
+    text-transform: uppercase;
+    margin-bottom: 1rem !important;
 }
-.bottom-banner a{
-    background-color: transparent !important;
-    border: 2px solid white !important;
-    padding: 10px 20px !important;
-    font-weight: 700 !important;
-    font-size: 16px !important;
+.bottom-banner form {
+    position: relative;
+    width: 515px !important;
+    max-width: 515px !important;
+    height: 50px !important;
+    max-height: 50px !important;
+    margin-top: 40px !important;
+}
+.bottom-banner input[type="email"]{
+    position: relative;
+    background-color: #FDDCF2 !important;
     border-radius: 15px !important;
-    color: white !important;
-    transition: .3s ease-in-out;
+    width: 360px !important;
+    max-width: 360px !important;
+    height: 100% !important;
 }
-.bottom-banner a:hover{
-    background-color: white !important;
-    color: #f7553b !important;
-    transition: .3s ease-in-out;
+.bottom-banner .kb-accept-form-field{
+    margin-top: 11px !important;
+}
+.bottom-banner input[type="checkbox"]{
+    width: 8px !important;
+    height: 8px !important;
+}
+.bottom-banner .kb-accept-form-field label{
+    text-align: left;
+    font: normal normal normal 14px/18px 'Outfit';
+    line-height: 18px !important;
+    letter-spacing: 0px;
+    color: #FFB9E5;
+}
+.bottom-banner input::placeholder{
+    font-family: 'Grandstander', sans-serif;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+    color: #003DFF !important;
+        
+}
+.bottom-banner button{
+    position: absolute !important;
+    right: 0;
+    top: 0;
+    width: 216px !important;
+    max-width: 216px !important;
+    font-family: 'Grandstander', sans-serif;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    line-height: 30px !important;
+    letter-spacing: 0px !important;
+    color: #FFB9E5 !important;
+    background: #003DFF !important;
+    border-radius: 15px !important;
+    height: 100% !important;
+    z-index: 6;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+.kb-form .kadence-blocks-form-field{
+    padding: unset !important;
+    margin: 0 !important;
+    height: 100% !important;
+    z-index: 5;
 }
 /*********************BANNER PPAL****************************/
+.swiper{
+    overflow: visible !important;
+}
+.swiper-pagination{
+    bottom: -35px !important;
+}
+#bicbCarousel-1 .bicbCarousel .swiper-pagination .swiper-pagination-bullet{
+    background: transparent !important;
+    margin: 0px 12px !important;
+}
+#bicbCarousel-1 .bicbCarousel .swiper-pagination .swiper-pagination-bullet::before{
+    content: '';
+    display: inline-block;
+    width: 15px; 
+    height: 14px;
+
+    /* Insertamos el SVG como una imagen de fondo */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23003DFF'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain; /* Ajusta el tamaño del SVG para que quepa en la caja */
+    
+    margin-right: 8px;
+    vertical-align: middle; /* Opcional: para alinear el icono verticalmente con el texto */
+}
 #bicbCarousel-1 .bicbCarousel{
     padding: 0 !important;
 }
-.swiper-slide.swiper-slide-active figure{
+#bicbCarousel-1 .bicbCarousel .swiper-button-next, 
+#bicbCarousel-1 .bicbCarousel .swiper-button-prev{ 
+    display: none;
+}
+#bicbCarousel-1 .bicbCarousel:hover .swiper-button-next, 
+#bicbCarousel-1 .bicbCarousel:hover .swiper-button-prev{ 
+    display: block;;
+}
+.swiper-slide figure{
     overflow: hidden;
 
 }
 .swiper-slide.swiper-slide-active img:hover{
     transform: scale(1.05);
-    transition: .3s ease-in-out;
+    transition: .4s ease-in-out;
 
 }
 .swiper-slide.swiper-slide-active img{
-    transition: .3s ease-in-out;
+    transition: .4s ease-in-out;
+}
+
+
+/**SUBCATEGORIAS*/
+.sub-categories{
+    margin-bottom: 40px !important;
+}
+.sub-categories .kt-row-column-wrap{
+    padding: 0 !important;
+}
+.sub-categories .kt-inside-inner-col .wp-block-buttons{
+    position: absolute;
+    top: calc(50% - 17px);
+    width: 100%;
+    align-items: center;
+    justify-content:center ;
+
+}
+.sub-categories .kt-inside-inner-col .wp-block-buttons a{
+    width: 135px !important;
+    height: 34px !important;
+
+    
+    border-radius: 8px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+}
+
+/*BOTONES DE COLORES PARA SUBCAT*/
+/*PRIMERA FILA*/
+.sub-categories .kb-row-layout-wrap:nth-of-type(1) .wp-block-kadence-column:nth-child(1) .kt-inside-inner-col .wp-block-buttons a{
+    background: #36CE77 0% 0% no-repeat padding-box !important;
+    color: #003DFF !important;
+    transition: all .4s ease-in-out;
+}
+.sub-categories .kb-row-layout-wrap:nth-of-type(1) .wp-block-kadence-column:nth-child(1) .kt-inside-inner-col .wp-block-buttons a:hover{
+    background: #003DFF 0% 0% no-repeat padding-box !important;
+    color: #36CE77 !important;
+    transition: all .4s ease-in-out;
+}
+
+.sub-categories .kb-row-layout-wrap:nth-of-type(1) .wp-block-kadence-column:nth-child(2) .kt-inside-inner-col .wp-block-buttons a{
+    background: #F2462A 0% 0% no-repeat padding-box !important;
+    color: #FFB9E5 !important;
+    transition: all .4s ease-in-out;
+}
+.sub-categories .kb-row-layout-wrap:nth-of-type(1) .wp-block-kadence-column:nth-child(2) .kt-inside-inner-col .wp-block-buttons a:hover{
+    background: #FFB9E5 0% 0% no-repeat padding-box !important;
+    color: #F2462A !important;
+    transition: all .4s ease-in-out;
+}
+
+.sub-categories .kb-row-layout-wrap:nth-of-type(1) .wp-block-kadence-column:nth-child(3) .kt-inside-inner-col .wp-block-buttons a{
+    background: #003DFF 0% 0% no-repeat padding-box !important;
+    color: #FFD62C !important;
+    transition: all .4s ease-in-out;
+}
+.sub-categories .kb-row-layout-wrap:nth-of-type(1) .wp-block-kadence-column:nth-child(3) .kt-inside-inner-col .wp-block-buttons a:hover{
+    background: #FFD62C 0% 0% no-repeat padding-box !important;
+    color: #003DFF !important;
+    transition: all .4s ease-in-out;
+}
+
+
+/*SEGUNDA FILA*/
+.sub-categories .kb-row-layout-wrap:nth-of-type(2) .wp-block-kadence-column:nth-child(1) .kt-inside-inner-col .wp-block-buttons a{
+    background: #003DFF 0% 0% no-repeat padding-box !important;
+    color: #36CE77 !important;
+    transition: all .4s ease-in-out;
+}
+.sub-categories .kb-row-layout-wrap:nth-of-type(2) .wp-block-kadence-column:nth-child(1) .kt-inside-inner-col .wp-block-buttons a:hover{
+    background: #36CE77 0% 0% no-repeat padding-box !important;
+    color: #003DFF !important;
+    transition: all .4s ease-in-out;
+}
+
+.sub-categories .kb-row-layout-wrap:nth-of-type(2) .wp-block-kadence-column:nth-child(2) .kt-inside-inner-col .wp-block-buttons a{
+background: #FFB9E5 0% 0% no-repeat padding-box !important;
+    color: #F2462A !important;
+    transition: all .4s ease-in-out;
+}
+.sub-categories .kb-row-layout-wrap:nth-of-type(2) .wp-block-kadence-column:nth-child(2) .kt-inside-inner-col .wp-block-buttons a:hover{
+    background: #F2462A 0% 0% no-repeat padding-box !important;
+    color: #FFB9E5 !important;
+    transition: all .4s ease-in-out;
+}
+
+.sub-categories .kb-row-layout-wrap:nth-of-type(2) .wp-block-kadence-column:nth-child(3) .kt-inside-inner-col .wp-block-buttons a{
+    background: #FFD62C 0% 0% no-repeat padding-box !important;
+    color: #003DFF !important;
+    transition: all .4s ease-in-out;
+}
+.sub-categories .kb-row-layout-wrap:nth-of-type(2) .wp-block-kadence-column:nth-child(3) .kt-inside-inner-col .wp-block-buttons a:hover{
+    background: #003DFF 0% 0% no-repeat padding-box !important;
+    color: #FFD62C !important;
+    transition: all .4s ease-in-out;
+}
+
+/*************************/
+
+
+.item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+}
+
+.subcategory-grid-item:hover .item-overlay {
+    opacity: 1;
+}
+
+.category-name {
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.category-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.category-button:hover {
+    background-color: #f7553b;
+}
+
+/*
+ * Estilos para el título "SUBCATEGORÍAS"
+ */
+.subcategories-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #f7553b;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    padding-left: 20px;
+}
+
+.subcategories-title::before {
+    content: '⭐';
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: #f7553b;
+}
+
+
+
+/*****BANNER VENTAS********************************************/
+.banner-ventas h2{
+    font-family:'Grandstander', sans-serif;
+    font-size: 40px !important;
+    line-height: 63px !important;
+    font-weight: 600 !important;
+    color:#FFB9E5 !important;
+    letter-spacing: 0.28px;
+    position: relative;
+    z-index: 5 !important;
+    padding: 50px !important;
+}
+.banner-ventas h2::after{
+    content:'';
+    position: absolute;
+    display: inline-block; /* O 'block' si quieres que ocupe todo el ancho */
+    width: 105px; /* Le damos el ancho original del SVG */
+    height: 99px; /* Le damos el alto original del SVG */
+
+    /* Insertamos el SVG como una imagen de fondo */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='105' height='99' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23F2462A'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain; /* Ajusta el tamaño del SVG para que quepa en la caja */
+    z-index: -1 !important;
+    left: calc(50% - 225px);
+    top: 18px;
+
+}
+.banner-ventas .kt-inside-inner-col{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.banner-ventas .kt-inside-inner-col h3{
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    font-weight: 600 !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+.banner-ventas .wp-block-kadence-column:nth-child(1) h3{
+  color: #F77E6A !important;
+}
+.banner-ventas .wp-block-kadence-column:nth-child(2) h3{
+  color: #36CE77 !important;
+}
+.banner-ventas .wp-block-kadence-column:nth-child(3) h3{
+  color: #FFD62C !important;
+}
+.banner-ventas .wp-block-kadence-column:nth-child(4) h3{
+  color: #FFB9E5 !important;
+}
+
+.banner-ventas .kt-inside-inner-col p{
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px !important;
+    line-height: 22px !important;
+    font-weight: 400 !important;
+    color: #F8F8F0 !important;
+}
+
+/**BLOG SECTION****/
+.blog-section{
+    margin-top: 38px !important;
+}
+.blog-section .wp-block-kadence-column:nth-child(1) {
+    background-color: #F2462A !important;
+    padding-top: 53px !important;
+    padding-left: 35px !important;
+
+}
+.blog-section .wp-block-kadence-column:nth-child(1) h4 {
+    color: #FFB9E5 !important;
+    font-family: 'Grandstander', sans-serif;
+    font-size: 40px !important;
+    line-height: 48px !important;
+    font-weight: 600 !important;
+
+}
+.blog-section .wp-block-kadence-column:nth-child(1) p {
+    color: #FFB9E5 !important;
+    font-family: 'Outfit', sans-serif;
+    font-size: 26px !important;
+    line-height: 30px !important;
+    font-weight: 400 !important;
+
+}
+.blog-section .wp-block-kadence-column{
+    background-color: white;
+}
+.blog-section .wp-block-kadence-column p {
+    margin: 0;
+    padding: 16px;
+    font: normal normal 600 20px/28px 'Outfit';
+    letter-spacing: 0px;
+    color: #0E0E1D;
 }
