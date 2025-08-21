@@ -682,9 +682,7 @@ margin-top: 36px !important;
     max-width: 360px !important;
     height: 100% !important;
 }
-.bottom-banner .kb-accept-form-field{
-    margin-top: 11px !important;
-}
+
 .bottom-banner input[type="checkbox"]{
     width: 8px !important;
     height: 8px !important;
@@ -729,6 +727,9 @@ margin-top: 36px !important;
     margin: 0 !important;
     height: 100% !important;
     z-index: 5;
+}
+.bottom-banner .kb-accept-form-field{
+    margin-top: 11px !important;
 }
 /*********************BANNER PPAL****************************/
 .swiper{
