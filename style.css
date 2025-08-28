@@ -229,6 +229,11 @@
     display: flex;
     margin: 0 !important;
 }
+.categories-list.categories-page ul li{
+    display: flex;
+    margin: 0 !important;
+    width: 158px !important;;
+}
 .categories-list ul li img{
     transition: all .4s ease-in-out;
 }
@@ -252,6 +257,27 @@
 
 .categories-list .wc-block-product-categories-list--has-images .wc-block-product-categories-list-item__image{
     max-width: 200px !important;
+    border-radius: 100%;
+    overflow: hidden;
+    margin: 0;
+
+}
+
+.categories-list.categories-page ul li a{
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 158px !important;
+    text-align: center;
+    color: #333;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+}
+
+.categories-list.categories-page .wc-block-product-categories-list--has-images .wc-block-product-categories-list-item__image{
+    max-width: 150px !important;
     border-radius: 100%;
     overflow: hidden;
     margin: 0;
@@ -472,6 +498,10 @@ transition: all .4s ease-in-out;
     bottom: -30px !important;
 }
 
+.sub-categories .custom-product-carousel-swiper .swiper-scrollbar-drag {
+    background: #F2462A; /* El color de la barra que se mueve */
+    
+}
 .product-section .custom-product-carousel-swiper .swiper-scrollbar-drag {
     background: #003dff; /* El color de la barra que se mueve */
     
@@ -1077,7 +1107,7 @@ background: #FFB9E5 0% 0% no-repeat padding-box !important;
     line-height: 22px;
     letter-spacing: 0px;
 }
-.paginas-legales .storefront-breadcrumb{
+.storefront-breadcrumb{
     display: none;
 }
 .paginas-legales .wp-block-group{
@@ -1085,4 +1115,406 @@ background: #FFB9E5 0% 0% no-repeat padding-box !important;
 }
 .paginas-legales .wp-block-group h3{
     margin-bottom: 24px;
+}
+
+/**CATEGORIES PAGE***/
+.section-container{
+    margin-top: 74px !important;
+}
+.categories-page h1{
+    font: normal normal 600 56px 'Grandstander';
+    line-height: 66px;
+    letter-spacing: 0px;
+    color: #F8F8F0;
+    padding-top: 262px !important;
+    padding-bottom: 24px !important;
+
+}
+.categories-page h1::before{
+    content:'';
+    display: inline-block; /* O 'block' si quieres que ocupe todo el ancho */
+    width: 48px; /* Le damos el ancho original del SVG */
+    height: 44px; /* Le damos el alto original del SVG */
+    margin-right: 10px !important;
+    /* Insertamos el SVG como una imagen de fondo */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='105' height='99' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23F8F8F0'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain; /* Ajusta el tamaño del SVG para que quepa en la caja */
+
+}
+.categories-page .sub-categories h2::before{
+    content: ''; /* Se necesita para que el pseudo-elemento se muestre */
+    display: inline-block; /* O 'block' si quieres que ocupe todo el ancho */
+    width: 27px;
+    height: 25px;
+    
+    background-repeat: no-repeat;
+    background-size: contain; /* Ajusta el tamaño del SVG para que quepa en la caja */
+    
+    margin-right: 8px;
+    vertical-align: middle; /* Opcional: para alinear el icono verticalmente con el texto */
+}
+.categories-page .sub-categories:nth-child(2) h2{
+    color: #F2462A !important;
+}
+.categories-page .sub-categories:nth-child(2) h2::before{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23F2462A'/%3E%3C/svg%3E");
+    margin-bottom: 8px !important;
+}
+.categories-page .sub-categories:nth-child(3) h2{
+    color: #003DFF !important;
+}
+.categories-page .sub-categories:nth-child(3) h2::before{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23003DFF'/%3E%3C/svg%3E");
+    margin-bottom: 8px !important;
+}
+.categories-page .sub-categories:nth-child(4) h2{
+    color: #36CE77 !important;
+}
+.categories-page .sub-categories:nth-child(4) h2::before{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%2336CE77'/%3E%3C/svg%3E");
+    margin-bottom: 8px !important;
+}
+.categories-page .product-section .wp-block-heading{
+    color: #F2462A !important;
+}
+.categories-page .product-section .wp-block-heading::before{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.495' height='13.485' viewBox='0 0 14.495 13.485'%3E%3Cpath id='Trazado_236' data-name='Trazado 236' d='M7.9.35C7.992.178,8.116,0,8.276,0a.421.421,0,0,1,.456.231,1.29,1.29,0,0,1,.155.374,1.474,1.474,0,0,1,.044.217l.519,4.116c.052.248.2.345.492.347l3.569-.421q.086-.01.172-.013c.089,0,.177,0,.269,0,.642,0,.74.554.163,1.048L10.972,8.7a.463.463,0,0,0-.179.574l1.229,2.976a1.494,1.494,0,0,1,.1.376c.1.737-.428,1.192-1.412.571L7.673,11.46h0a.6.6,0,0,0-.6.008h0l-3.882,1.9c-.452.227-.922.01-.79-.583h0L3.8,8.881c.1-.271-.025-.4-.194-.569h0L.345,5.193c-.552-.485-.433-1.039.3-.959l4.607.458h0A.46.46,0,0,0,5.7,4.416a.592.592,0,0,0,.032-.053Z' transform='translate(0 0)' fill='%23F2462A'/%3E%3C/svg%3E");
+    content: ''; /* Se necesita para que el pseudo-elemento se muestre */
+    display: inline-block; /* O 'block' si quieres que ocupe todo el ancho */
+    width: 27px;
+    height: 25px;
+
+    /* Insertamos el SVG como una imagen de fondo */
+    
+    background-repeat: no-repeat;
+    background-size: contain; /* Ajusta el tamaño del SVG para que quepa en la caja */
+    
+    margin-right: 8px;
+    vertical-align: middle; /* Opcional: para alinear el icono verticalmente con el texto */
+}
+.categories-page .product-section .custom-product-carousel-swiper .swiper-scrollbar-drag{
+    background: #F2462A !important;
+}
+.swiper-wrapper{
+    padding-bottom: 0px !important;
+}
+.swiper-wrapper li.wc-block-product-categories-list-item {
+    width: 150px;
+}
+.swiper-wrapper li.wc-block-product-categories-list-item a{
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #333;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+}
+.categories-swiper .swiper-wrapper{
+    margin-left: 0px !important;
+}
+
+.categories-page .sub-categories:nth-child(2) .categories-swiper .swiper-scrollbar-drag{
+    background: #F2462A !important;
+
+}
+.categories-page .sub-categories:nth-child(3) .categories-swiper .swiper-scrollbar-drag{
+    background: #003DFF !important;
+
+}
+.categories-page .sub-categories:nth-child(4) .categories-swiper .swiper-scrollbar-drag{
+    background: #36CE77 !important;
+
+}
+
+/***PRODUCTS PAGE********************************************/
+.custom-product-page{
+    background-color: #F8F8F0 !important;
+    width: 100% !important;
+    padding-top: 72px !important;
+}
+.custom-product-page .summary.entry-summary{
+
+    width: 50% !important;
+
+}
+.custom-product-page h1{
+    font-family: 'Grandstander', sans-serif;
+    font-size: 36px !important;
+    line-height: 63px !important;
+    font-weight: 600 !important;
+    color:#0E0E1D !important;
+    letter-spacing: 0.28px;
+}
+.custom-product-page p{
+    font: normal normal normal 16px/22px Outfit;
+    letter-spacing: 0px;
+    color: #0E0E1D;
+}
+
+.custom-product-page .single_add_to_cart_button{
+    background-color: #003DFF !important;
+    padding: 16px 24px !important;
+    border-radius: 15px !important;
+    font: normal normal 600 18px/18px Grandstander;
+    letter-spacing: 0px;
+    color: #FFB9E5;
+    transition: .4s ease-in-out;
+}
+.custom-product-page .single_add_to_cart_button:hover{
+    background-color: #FFB9E5 !important;
+    color: #003DFF;
+    transition: .4s ease-in-out;
+}
+.custom-product-page .custom-galery{
+    max-width: 637px !important;
+    display: inline-flex;
+}
+.custom-product-page .selector label{
+    font: normal normal 600 16px/24px Outfit;
+    color: #0E0E1D;
+    margin-bottom: 8px !important;
+}
+.custom-product-page .selector.color-selector >div{
+    display: flex;
+    gap: 16px !important;
+    margin-bottom: 24px;
+}
+.custom-product-page .selector.size-selector >div{
+    display: flex;
+    gap: 8px !important;
+}
+.custom-product-page .selector.color-selector .radio{
+    border: 1px solid #0E0E1D;
+    border-radius: 100%;
+}
+
+.custom-product-page .selector .color{ 
+    border-radius: 100%;
+    width: 19px;
+    height: 19px;
+    margin: 4px;
+}
+.custom-product-page .selector .radio:nth-child(1) .color{
+    background-color: #F2462A !important;
+}
+.custom-product-page .selector .radio:nth-child(2) .color{
+    background-color: #003DFF !important;
+}
+.custom-product-page .selector .radio:nth-child(3) .color{
+    background-color: #36CE77 !important;
+}
+
+.custom-product-page .selector.size-selector .radio{
+    padding: 6px 16px !important;
+    border: 1px solid #0E0E1D;
+    border-radius: 8px;
+}
+.custom-product-page .selector.size-selector span{
+    font: normal normal 600 12px Outfit;
+    letter-spacing: 0.14px;
+    color: #0E0E1D;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  height: 50px;
+  background-color: #f5f5dc; /* Color beige de fondo */
+  border: 2px solid #1a1a1a;
+  border-radius: 12px;
+  font-family: sans-serif;
+  overflow: hidden;
+  margin-right: 24px;
+}
+
+.quantity-btn {
+  background: none;
+  border: none;
+  font-size: 25px;
+  padding: 10px !important;
+  font-weight: bold;
+  cursor: pointer;
+  color: #007bff; /* Color azul para los botones */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quantity-btn:focus{
+    outline: 0px !important;
+}
+.plus{
+    margin-right: 6px;
+}
+.minus {
+  color: #1a1a1a; /* Color negro para el botón de decrementar */
+  margin-left: 6px;
+}
+
+.quantity-input {
+  width: 40px;
+  height: 100%;
+  text-align: center;
+  border: none;
+  font-size: 18px;
+  background: none;
+  -moz-appearance: textfield; /* Para ocultar flechas en Firefox */
+}
+
+/* Ocultar flechas en navegadores WebKit (Chrome, Safari) */
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.custom-product-page .summary form{
+    display: flex ;
+}
+.custom-product-page .summary form input[type="number"]{
+    padding: 0 !important;
+    width: 20px !important;
+}
+.custom-product-page .edit-link, .custom-product-page .product_meta{
+    display: none;
+}
+
+
+.product-info-accordion-wrapper {
+    display: flex;
+    gap: 40px; /* Espacio entre las columnas */
+    padding: 20px 0;
+    margin: 0 auto; /* Para centrar */
+}
+
+.accordion-column {
+    flex: 1; /* Ocupa el mismo espacio en ambas columnas */
+}
+
+.accordion-item {
+    margin-bottom: 0;
+    border-bottom: 1px solid #dcdcdc; /* Línea separadora */
+}
+
+.accordion-item:first-child {
+    border-top: 1px solid #dcdcdc; /* Línea superior para el primer elemento */
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 15px 0;
+    background-color: transparent; /* Color beige de fondo */
+    border: none;
+    text-align: left;
+    font: normal normal normal 20px/28px Outfit;
+    letter-spacing: 0px;
+    color: #0E0E1D;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1a1a1a;
+}
+
+.accordion-header:focus {
+    outline: none;
+}
+
+.icon-plus {
+    font-size: 36px;
+    color: #003DFF; /* Color azul para el icono */
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .icon-plus {
+    transform: rotate(45deg);
+}
+
+.accordion-content {
+    height: 0;
+    overflow: hidden;
+    background-color: transparent; /* Color beige del contenido */
+    padding: 0 15px;
+    color: #333;
+    transition: .4s ease-in-out;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: none;
+    height: 90px;
+    padding-bottom: 15px;
+    transition: .4s ease-in-out;
+}
+
+.accordion-content p {
+    margin: 0;
+    padding: 10px 0;
+    line-height: 1.6;
+}
+.review-section{
+    display: flex;
+    gap: 24px;
+}
+
+.review-box{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    border: 1px solid #0E0E1D;
+    border-radius: 10px;
+    width: 452px !important;
+    height: fit-content;
+}
+.review-box p{
+
+margin-bottom: 0 !important;
+}
+.review-box p.name{
+    font: normal normal 600 16px/24px Outfit;
+letter-spacing: 0px;
+color: #0E0E1D;
+
+}
+.review-box .stars{
+    display: flex;
+    gap: 16px;
+}
+
+/***404****/
+.page-404 h1{
+    font: 64px/66px Grandstander;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #FFB9E5;
+}
+.page-404 .page-header{
+    background-color: #F2462A;
+    padding: 72px 0px;
+}
+.page-404 .page-header .page-title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.page-404 .page-header>div{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 120px;
+}
+.page-404 .page-header .img-container{
+    height: 461px;
+    width: 100%;
+    background-color: white;
+}
+.page-404 header p{
+    font: 20px/28px Outfit;
+    letter-spacing: 0px;
+    color: #FFB9E5;
 }
