@@ -27,7 +27,13 @@ get_header(); ?>
 							</div>
 						</div>
 					</header><!-- .page-header -->
-
+					<section class="shop-featured-products-section" style="margin-top: 0px !important;">
+						<div class="page-width">
+							<h2>Productos estrella</h2>
+							<p>Sea cual sea la ocasión, en Party Fiesta tenemos todo lo que necesitas para que tus celebraciones sean un éxito rotundo: disfraces, globos, piñatas, velas y mucho más. ¡Explora nuestra selección y prepárate para una fiesta inolvidable!</p>
+							<?php echo do_shortcode('[custom_product_carousel]'); ?>
+						</div>
+					</section>
 
 					<?php
 					// echo '<section aria-label="' . esc_html__( 'Search', 'storefront' ) . '">';

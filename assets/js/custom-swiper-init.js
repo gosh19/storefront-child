@@ -43,6 +43,8 @@
 
     // Espera a que el DOM esté completamente cargado
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('wenas');
+        
         initializeProductCarousel();
 
         // Escucha los clics en los botones de "Añadir a la cesta"
@@ -90,33 +92,8 @@
             }
         });
 
-        /**contador */
-        const minusBtn = document.querySelector('.minus');
-        const plusBtn = document.querySelector('.plus');
-        const quantityInput = document.querySelector('.quantity-input');
 
 
-        minusBtn?.addEventListener('click', () => {
-            let currentValue = parseInt(quantityInput.value);
-            if (currentValue > parseInt(quantityInput.min)) {
-                console.log('wenas');
-            quantityInput.value = currentValue - 1;
-            }
-        });
 
-        plusBtn?.addEventListener('click', () => {
-            let currentValue = parseInt(quantityInput.value);
-            quantityInput.value = currentValue + 1;
-        });
-
-        /**atributos */
-        const accordionHeaders = document.querySelectorAll('.accordion-header');
-
-        accordionHeaders?.forEach(header => {
-            header.addEventListener('click', () => {
-                const accordionItem = header.closest('.accordion-item');
-                accordionItem.classList.toggle('active');
-            });
-        });
     });
 })();

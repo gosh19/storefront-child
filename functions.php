@@ -1,7 +1,6 @@
 <?php
 
-
-
+// Tema hijo Storefront configurado correctamente
 
 function storefront_child_enqueue_styles()
 {
@@ -127,18 +126,62 @@ function woocommerce_custom_add_to_cart_button_text_archive()
     return __('Añadir a la cesta', 'woocommerce');
 }
 
-function custom_enqueue_swiper()
+function custom_enqueue_scripts()
 {
+    // Debug temporal
+    error_log('=== CUSTOM_ENQUEUE_SCRIPTS EJECUTÁNDOSE ===');
+    error_log('Tema activo: ' . get_stylesheet());
+    error_log('Tema padre: ' . get_template());
+    error_log('URL del tema hijo: ' . get_stylesheet_directory_uri());
+    
+    // Verificar que estemos en el tema hijo
+    if (get_template() !== 'storefront') {
+        error_log('❌ Tema padre no es storefront, saliendo...');
+        return;
+    }
+    
+    error_log('✅ Tema padre es storefront, continuando...');
+    
     // Carga el CSS de Swiper.js desde un CDN
     wp_enqueue_style('swiper-css', 'https://unpkg.com/swiper@11/swiper-bundle.min.css');
+    error_log('✅ Estilo swiper-css registrado');
 
     // Carga el JavaScript de Swiper.js desde un CDN
     wp_enqueue_script('swiper-js', 'https://unpkg.com/swiper@11/swiper-bundle.min.js', array(), null, true);
+    error_log('✅ Script swiper-js registrado');
 
     // Carga tu propio JavaScript para inicializar el carrusel
-    wp_enqueue_script('custom-swiper-init', get_stylesheet_directory_uri() . '/assets/js/custom-swiper-init.js', array('swiper-js'), '1.0', true);
+    $swiper_init_url = get_stylesheet_directory_uri() . '/assets/js/custom-swiper-init.js';
+    wp_enqueue_script('custom-swiper-init', $swiper_init_url, array('swiper-js'), '1.0', true);
+    error_log('✅ Script custom-swiper-init registrado: ' . $swiper_init_url);
+
+    // Carga el JavaScript de filtros en todo el sitio
+    $filters_url = get_stylesheet_directory_uri() . '/assets/js/filters.js';
+    wp_enqueue_script('custom-filters', $filters_url, array(), '1.0', true);
+    error_log('✅ Script custom-filters registrado: ' . $filters_url);
+    
+    error_log('✅ Todos los scripts registrados correctamente');
 }
-add_action('wp_enqueue_scripts', 'custom_enqueue_swiper');
+// Usar múltiples hooks para asegurar que se cargue
+add_action('wp_enqueue_scripts', 'custom_enqueue_scripts');
+add_action('wp_head', 'custom_enqueue_scripts');
+add_action('wp_footer', 'custom_enqueue_scripts');
+
+// Debug: verificar que la función se ejecute
+add_action('init', function() {
+    error_log('=== INIT HOOK EJECUTÁNDOSE ===');
+    error_log('Tema activo: ' . get_stylesheet());
+    error_log('Tema padre: ' . get_template());
+    error_log('Tema hijo directorio: ' . get_stylesheet_directory());
+    error_log('Tema hijo URI: ' . get_stylesheet_directory_uri());
+    
+    // Verificar que el tema hijo esté activo
+    if (get_stylesheet() === 'storefront-child') {
+        error_log('✅ Tema hijo storefront-child está activo');
+    } else {
+        error_log('❌ Tema hijo storefront-child NO está activo. Tema activo: ' . get_stylesheet());
+    }
+});
 
 
 
@@ -198,48 +241,105 @@ function custom_product_carousel_shortcode()
 }
 add_shortcode('custom_product_carousel', 'custom_product_carousel_shortcode');
 
-function custom_carrusel_sub_categories_shortcode()
+function custom_carrusel_sub_categories_shortcode($atts = array())
 {
-    // Argumentos para obtener todas las categorías de productos.
+    // Atributos opcionales
+    $atts = shortcode_atts(array(
+        'hide_empty'  => 'false', // 'true'|'false'
+        'top_level'   => 'false', // 'true' para solo nivel superior
+        'parent'      => '',      // id de parent específico
+        'max'         => '',      // número máximo a mostrar
+        'class'       => '',      // clase extra para el contenedor
+        'scrollbar'   => '',      // nombre/color para clase de scrollbar, ej: 'pink'
+        'show_parent' => 'false', // 'true' para mostrar padre si tiene
+        'orderby'     => 'name',
+        'order'       => 'ASC',
+    ), $atts, 'custom_carrusel_sub_categories');
+
+    $hide_empty  = filter_var($atts['hide_empty'], FILTER_VALIDATE_BOOLEAN);
+    $only_top    = filter_var($atts['top_level'], FILTER_VALIDATE_BOOLEAN);
+    // parent puede ser un ID o la palabra 'current'
+    $parent_id   = null;
+    if ($atts['parent'] !== '') {
+        if ($atts['parent'] === 'current' && function_exists('is_product_category') && is_product_category()) {
+            $current_cat = get_queried_object();
+            if ($current_cat && isset($current_cat->term_id)) {
+                $parent_id = intval($current_cat->term_id);
+            }
+        } else {
+            $parent_id = intval($atts['parent']);
+        }
+    }
+    $max_items   = $atts['max'] !== '' ? max(0, intval($atts['max'])) : 0;
+    $extra_class = sanitize_html_class($atts['class']);
+    $scrollbar   = $atts['scrollbar'] !== '' ? 'scrollbar-' . sanitize_html_class($atts['scrollbar']) : '';
+    $show_parent = filter_var($atts['show_parent'], FILTER_VALIDATE_BOOLEAN);
+
+    // Construir argumentos dinámicos
     $args = array(
         'taxonomy'   => 'product_cat',
-        'hide_empty' => false, // false para obtener todas, incluso las vacías.
+        'hide_empty' => $hide_empty,
+        'orderby'    => sanitize_key($atts['orderby']),
+        'order'      => $atts['order'] === 'DESC' ? 'DESC' : 'ASC',
     );
+
+    if ($only_top) {
+        $args['parent'] = 0;
+    } elseif (!is_null($parent_id)) {
+        $args['parent'] = $parent_id;
+    } elseif (function_exists('is_product_category') && is_product_category()) {
+        // Si no se especificó top_level ni parent y estamos en una categoría de producto,
+        // por defecto mostrar las hijas de la categoría actual
+        $current_cat = get_queried_object();
+        if ($current_cat && isset($current_cat->term_id)) {
+            $args['parent'] = intval($current_cat->term_id);
+        }
+    }
+
     $product_categories = get_terms($args);
 
-    // Comprobar si se encontraron categorías.
     if (!empty($product_categories) && !is_wp_error($product_categories)) :
         ob_start();
     ?>
-    <div class="swiper custom-product-carousel-swiper categories-swiper">
+    <div class="swiper custom-product-carousel-swiper categories-swiper <?php echo esc_attr(trim($extra_class . ' ' . $scrollbar)); ?>">
         <ul class="swiper-wrapper">
             <?php
-            // Bucle para repetir las categorías 3 veces, como en tu código original.
-            for ($i = 0; $i < 3; $i++) :
-                foreach ($product_categories as $category) :
-                    $thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
+            $rendered = 0;
+            foreach ($product_categories as $category) :
+                if ($max_items > 0 && $rendered >= $max_items) {
+                    break;
+                }
+                $thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
+                $parent_label = '';
+                if ($show_parent && !empty($category->parent)) {
+                    $parent_term = get_term($category->parent, 'product_cat');
+                    if ($parent_term && !is_wp_error($parent_term)) {
+                        $parent_label = ' (' . esc_html($parent_term->name) . ')';
+                    }
+                }
             ?>
-                    <li class="wc-block-product-categories-list-item swiper-slide">
-                        <a href="<?php echo esc_url(get_term_link($category)); ?>">
-                            <span class="wc-block-product-categories-list-item__image">
-                                    <?php
-                                    if ($thumbnail_id) {
-                                        echo wp_get_attachment_image($thumbnail_id, 'woocommerce_thumbnail');
-                                    } else {
-                                        echo wc_placeholder_img('woocommerce_thumbnail');
-                                    }
-                                    ?>
-                                </span>
-                            <span class="wc-block-product-categories-list-item__name"><?php echo esc_html($category->name); ?></span>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            <?php endfor; ?>
+                <li class="wc-block-product-categories-list-item swiper-slide">
+                    <a href="<?php echo esc_url(get_term_link($category)); ?>">
+                        <span class="wc-block-product-categories-list-item__image">
+                            <?php
+                            if ($thumbnail_id) {
+                                echo wp_get_attachment_image($thumbnail_id, 'woocommerce_thumbnail');
+                            } else {
+                                echo wc_placeholder_img('woocommerce_thumbnail');
+                            }
+                            ?>
+                        </span>
+                        <span class="wc-block-product-categories-list-item__name"><?php echo esc_html($category->name); ?><?php echo $parent_label; ?></span>
+                    </a>
+                </li>
+            <?php
+                $rendered++;
+            endforeach; ?>
         </ul>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-scrollbar"></div>
-        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-scrollbar"></div>
+    </div>
     <?php
         return ob_get_clean();
     else :
@@ -247,6 +347,15 @@ function custom_carrusel_sub_categories_shortcode()
     endif;
 }
 add_shortcode('custom_carrusel_sub_categories', 'custom_carrusel_sub_categories_shortcode');
+
+/**
+ * Forzar step=1 en el widget de filtro de precio
+ */
+function storefront_child_price_filter_step_one( $step )
+{
+    return 1;
+}
+add_filter( 'woocommerce_price_filter_widget_step', 'storefront_child_price_filter_step_one', 999 );
 
 
 /**
@@ -321,4 +430,293 @@ function add_custom_body_classes($classes)
     return $classes;
 }
 add_filter('body_class', 'add_custom_body_classes');
+
+/**
+ * Override Storefront content wrappers from child theme
+ */
+function storefront_child_override_wrappers()
+{
+    // Remove parent theme wrappers
+    remove_action('woocommerce_before_main_content', 'storefront_before_content', 10);
+    remove_action('woocommerce_after_main_content', 'storefront_after_content', 10);
+
+    // Add child theme wrappers
+    add_action('woocommerce_before_main_content', 'storefront_child_before_content', 10);
+    add_action('woocommerce_after_main_content', 'storefront_child_after_content', 10);
+}
+add_action('init', 'storefront_child_override_wrappers', 20);
+
+if (! function_exists('storefront_child_before_content')) {
+    function storefront_child_before_content()
+    {
+        ?>
+        <div id="primary" class="content-area" style="width: 100%;">
+            <main id="main" class="site-main " role="main">
+        <?php
+    }
+}
+
+if (! function_exists('storefront_child_after_content')) {
+    function storefront_child_after_content()
+    {
+        ?>
+            </main><!-- #main -->
+        </div><!-- #primary -->
+        <?php
+        do_action('storefront_sidebar');
+    }
+}
+
+/**
+ * Filtros de la categoría: barra superior con widgets
+ */
+function storefront_child_filter_bar()
+{
+    if (function_exists('error_log')) {
+        error_log('[SF Child] storefront_child_filter_bar INICIO');
+    }
+    if (! (function_exists('is_shop') && (is_shop() || is_product_taxonomy()))) {
+        if (function_exists('error_log')) {
+            error_log('[SF Child] storefront_child_filter_bar ABORT: no es shop ni product_taxonomy');
+        }
+        return;
+    }
+    ?>
+    <div class="shop-filters">
+        <?php
+        // Filtro por precio
+        the_widget('WC_Widget_Price_Filter', array(
+            'title' => __('Filtrar por precio', 'storefront')
+        ));
+        echo "<hr>";
+        // Construir filtros dinámicos por atributos que estén presentes en los productos listados
+        $attributes = function_exists('wc_get_attribute_taxonomies') ? wc_get_attribute_taxonomies() : array();
+        // Logs de diagnóstico
+        if (function_exists('error_log')) {
+            error_log('[SF Child] wc_get_attribute_taxonomies count: ' . (is_array($attributes) ? count($attributes) : 0));
+        }
+
+        if (!empty($attributes)) {
+            global $wp_query;
+            $current_product_ids = array();
+            if (isset($wp_query->posts) && is_array($wp_query->posts)) {
+                foreach ($wp_query->posts as $post_obj) {
+                    $current_product_ids[] = (int) $post_obj->ID;
+                }
+            }
+            if (function_exists('error_log')) {
+                error_log('[SF Child] Productos en vista: ' . count($current_product_ids));
+            }
+
+            foreach ($attributes as $attribute) {
+                $taxonomy = wc_attribute_taxonomy_name($attribute->attribute_name); // e.g. pa_color
+                $taxonomy_exists = taxonomy_exists($taxonomy);
+                if (function_exists('error_log')) {
+                    error_log('[SF Child] Revisando atributo: label=' . $attribute->attribute_label . ' slug=' . $attribute->attribute_name . ' taxonomy=' . $taxonomy . ' existe=' . ($taxonomy_exists ? 'si' : 'no'));
+                }
+                if (!$taxonomy_exists) {
+                    continue;
+                }
+
+                // Verificar si el atributo tiene términos asociados a los productos actuales
+                $has_terms_in_view = false;
+                $terms_checked = 0;
+                if (!empty($current_product_ids)) {
+                    $terms_in_view = get_terms(array(
+                        'taxonomy'   => $taxonomy,
+                        'hide_empty' => true,
+                        'object_ids' => $current_product_ids,
+                        'number'     => 1,
+                        'fields'     => 'ids',
+                    ));
+                    $has_terms_in_view = !is_wp_error($terms_in_view) && !empty($terms_in_view);
+                    $terms_checked = is_wp_error($terms_in_view) ? 0 : count($terms_in_view);
+                } else {
+                    // Si no tenemos IDs (por algún motivo), fallback: mostrar si hay términos globales no vacíos
+                    $terms_global = get_terms(array(
+                        'taxonomy'   => $taxonomy,
+                        'hide_empty' => true,
+                        'number'     => 1,
+                        'fields'     => 'ids',
+                    ));
+                    $has_terms_in_view = !is_wp_error($terms_global) && !empty($terms_global);
+                    $terms_checked = is_wp_error($terms_global) ? 0 : count($terms_global);
+                }
+                if (function_exists('error_log')) {
+                    error_log('[SF Child] ' . $taxonomy . ' terms_en_vista=' . ($has_terms_in_view ? 'si' : 'no') . ' terms_checked=' . $terms_checked);
+                }
+
+                if (!$has_terms_in_view) {
+                    continue;
+                }
+
+                // Estructura unificada: render manual para todos los atributos
+                echo '<div class="filter-group">';
+                echo '<h3 class="filter-title">' . sprintf(__('%s', 'storefront'), esc_html($attribute->attribute_label)) . '</h3>';
+                $taxonomy_for_query = wc_attribute_taxonomy_name($attribute->attribute_name); // pa_color
+                $terms_for_list = get_terms(array(
+                    'taxonomy'   => $taxonomy_for_query,
+                    'hide_empty' => true,
+                    'object_ids' => $current_product_ids,
+                ));
+                if (!is_wp_error($terms_for_list) && !empty($terms_for_list)) {
+                    echo '<ul class="woocommerce-widget-layered-nav-list" data-attribute="' . esc_attr($attribute->attribute_name) . '">';
+                    // Valores seleccionados actualmente para este atributo (pueden venir separados por comas)
+                    $active_values = array();
+                    $filter_param = 'filter_' . $attribute->attribute_name; // e.g. filter_color
+                    if (isset($_GET[$filter_param])) {
+                        $raw = wp_unslash($_GET[$filter_param]);
+                        $active_values = array_filter(array_map('sanitize_title', explode(',', (string) $raw)));
+                    }
+                    foreach ($terms_for_list as $term) {
+                        $is_active = in_array($term->slug, $active_values, true);
+                        $url = add_query_arg(array($filter_param => $term->slug));
+                        
+                        // Contar productos que tienen este término del atributo
+                        $term_count = 0;
+                        if (!empty($current_product_ids)) {
+                            $products_with_term = get_objects_in_term($term->term_id, $taxonomy_for_query);
+                            if (!is_wp_error($products_with_term)) {
+                                $term_count = count(array_intersect($current_product_ids, $products_with_term));
+                            }
+                        }
+                        
+                        echo '<li class="woocommerce-widget-layered-nav-list__item">';
+                        echo '<input type="checkbox" class="woocommerce-widget-layered-nav-list__checkbox" data-term="' . esc_attr($term->slug) . '" ' . checked(true, $is_active, false) . ' /> ';
+                        echo '<a rel="nofollow" href="' . esc_url($url) . '">' . esc_html($term->name) . '</a>';
+                        if ($term_count > 0) {
+                            echo '<span class="term-count">' . $term_count . '</span>';
+                        }
+                        echo '</li>';
+                    }
+                    echo '</ul>';
+                }
+                echo '</div>';
+                echo "<hr>";
+            }
+        }
+
+        // Filtros activos
+        the_widget('WC_Widget_Layered_Nav_Filters');
+        ?>
+    </div>
+    <?php
+}
+add_action('storefront_child_filters', 'storefront_child_filter_bar');
+
+// Se elimina el debug de atributos disponibles
+
 ?>
+<?php
+/**
+ * Reorder WooCommerce result count and catalog ordering
+ * Ensure the select (catalog ordering) appears after the count
+ */
+function storefront_child_reorder_result_and_ordering()
+{
+    // Remove Storefront defaults (both before and after the loop)
+    remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 10);
+    remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
+    remove_action('woocommerce_after_shop_loop', 'woocommerce_catalog_ordering', 10);
+    remove_action('woocommerce_after_shop_loop', 'woocommerce_result_count', 20);
+
+    // Add in desired order: count first, then ordering
+    add_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 10);
+    add_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 20);
+    add_action('woocommerce_after_shop_loop', 'woocommerce_result_count', 10);
+    add_action('woocommerce_after_shop_loop', 'woocommerce_catalog_ordering', 20);
+}
+add_action('init', 'storefront_child_reorder_result_and_ordering', 999);
+
+// AJAX handler for blog pagination
+function load_blog_posts() {
+    // Verify nonce
+    if (!wp_verify_nonce($_POST['nonce'], 'blog_pagination_nonce')) {
+        wp_die('Security check failed');
+    }
+    
+    $page = intval($_POST['page']);
+    $posts_per_page = 1;
+    
+    // Get all posts
+    $all_posts = get_posts(array(
+        'post_type' => 'post',
+        'numberposts' => -1,
+        'post_status' => 'publish'
+    ));
+    
+    $total_posts = count($all_posts);
+    $total_pages = ceil($total_posts / $posts_per_page);
+    
+    // Get posts for current page
+    $offset = ($page - 1) * $posts_per_page;
+    $current_page_posts = array_slice($all_posts, $offset, $posts_per_page);
+    
+    if (!empty($current_page_posts)) {
+        echo '<div class="blog-grid">';
+        foreach ($current_page_posts as $post) {
+            // Set up post data properly
+            global $post;
+            $post = $current_page_posts[0];
+            setup_postdata($post);
+            ?>
+            <article id="post-<?php the_ID(); ?>" <?php post_class('blog-post-card'); ?>>
+                
+                <?php if (has_post_thumbnail()) : ?>
+                    <div class="post-thumbnail">
+                        <a href="<?php the_permalink(); ?>">
+                            <?php the_post_thumbnail('medium_large'); ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="post-content">
+                    <header class="entry-header">
+                        <?php
+                        the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>');
+                        ?>
+                        
+                        <div class="entry-meta">
+                            <span class="posted-on">
+                                <i class="fas fa-calendar"></i>
+                                <?php echo get_the_date(); ?>
+                            </span>
+                            <span class="byline">
+                                <i class="fas fa-user"></i>
+                                <?php echo get_the_author(); ?>
+                            </span>
+                            <?php if (has_category()) : ?>
+                                <span class="cat-links">
+                                    <i class="fas fa-folder"></i>
+                                    <?php the_category(', '); ?>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                    </header>
+
+                    <div class="entry-summary">
+                        <?php the_excerpt(); ?>
+                    </div>
+
+                    <footer class="entry-footer">
+                        <a href="<?php the_permalink(); ?>" class="read-more-btn">
+                            Leer más <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </footer>
+                </div>
+            </article>
+            <?php
+        }
+        echo '</div>';
+    } else {
+        echo '<div class="no-posts">';
+        echo '<h2>No hay posts en esta página</h2>';
+        echo '</div>';
+    }
+    
+    wp_reset_postdata();
+    wp_die();
+}
+
+add_action('wp_ajax_load_blog_posts', 'load_blog_posts');
+add_action('wp_ajax_nopriv_load_blog_posts', 'load_blog_posts');

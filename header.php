@@ -12,6 +12,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@500;600&display=swap" rel="stylesheet">
 
 <?php wp_head(); ?>
+
+<!-- Debug temporal para verificar scripts -->
+<script>
+console.log('=== DEBUG HEADER ===');
+console.log('wp_head ejecutado');
+console.log('Scripts registrados:', window.wp_scripts ? 'SÍ' : 'NO');
+</script>
 </head>
 
 <body <?php body_class(); ?>>
